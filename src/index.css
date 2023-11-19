@@ -6,7 +6,7 @@ body {
 
 .app {
   display: grid;
-  grid-template-columns: repeat(5, 1fr, 2fr, 2fr, 2fr, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-auto-rows: minmax(100px, auto);
   align-items: center;
   grid-template-areas:
@@ -21,26 +21,21 @@ body {
   margin: auto;
 }
 
-.plate {
-  background-image: url("http://www.clker.com/cliparts/9/9/f/0/1194984076762834840small_plate.svg.hi.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  margin: auto;
-  height: 100px;
-  width: 100px;
-}
-
+.plate,
 .empty-plate {
   background-image: url("http://www.clker.com/cliparts/9/9/f/0/1194984076762834840small_plate.svg.hi.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  transform: rotateX(50deg);
   height: 100px;
   width: 100px;
+}
+
+.empty-plate {
+  transform: rotateX(50deg) translateX(-50%);
   position: absolute;
-  left: 300px;
+  left: 50%;
+  margin-bottom: 2px; /* Adjust the margin to make the distance very small */
 }
 
 .sushi-details {
@@ -62,11 +57,18 @@ body {
 .sushi {
   min-width: 150px;
   margin: auto;
+  cursor: pointer;
+  position: relative;
+  z-index: 1; /* Set a default z-index */
 }
 
-.plate > img {
-  max-height: 60px;
-  max-width: 100px;
+.sushi.eaten {
+  display: none; /* Hide the sushi when it's eaten */
+}
+
+.sushi > img {
+  max-height: 80px;
+  width: auto;
 }
 
 .table {
@@ -78,4 +80,24 @@ body {
   height: 428px;
   width: 700px;
   margin: auto;
+  position: relative;
+}
+
+.table .stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.table .stack .plate {
+  position: relative; /* Use relative positioning for the plates */
+  margin-bottom: 2px; /* Adjust the margin to create space between plates */
+}
+
+.sushi.eaten + .plate {
+  display: block; /* Display the empty plate when sushi is eaten */
 }
